@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import Profile,Post, LikePost, FollowersCount
+from .models import Profile,Post, LikePost, FollowersCount, Message
 from itertools import chain
 import random
 
@@ -265,3 +265,69 @@ def settings(request):
 def Logout(request):
    auth.logout(request)
    return redirect('signin')
+
+
+
+def chat(request, room):
+   
+   # room = request.POST['room_name']
+   # username = request.POST['username']
+ if User.objects.filter(username=room).exists():
+       user_object = User.objects.get(username=room)
+   
+      #  if Profile.objects.filter(user = user_object).exists():
+      
+      #     if request.method == 'POST':
+       roome = room
+      #         username = request.user.username
+      #         message = request.POST['message']
+
+
+      #         new_message = Message.objects.create(value = message, user = username, room = roome)
+      #         new_message.save()
+      #         return HttpResponse('Message sent SuccessFully')
+      
+       return render(request, 'chat.html',{'room':roome} )
+
+
+ else:
+         return redirect('/')
+ 
+
+
+def pchat(request):
+   
+       
+      
+          if request.method == 'POST':
+              roome = request.POST['room_id']
+              username = request.user.username
+              message = request.POST['message']
+
+
+              new_message = Message.objects.create(value = message, user = username, room = roome)
+              new_message.save()
+              return HttpResponse('Message sent SuccessFully')
+      
+          return render(request, 'chat.html' )
+
+
+
+def getMessages(request):
+    
+
+    if request.method == 'POST':
+              roome = request.POST['room_id']
+
+              messages = Message.objects.filter(room = roome, user = request.user.username) 
+
+
+    return JsonResponse({"messages":list(messages.values())})
+
+    
+
+
+
+
+
+    

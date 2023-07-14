@@ -38,7 +38,16 @@ class LikePost(models.Model):
 
 class FollowersCount(models.Model):
     follower = models.CharField(max_length=100)
-    user = models.CharField(max_length=100)\
+    user = models.CharField(max_length=100)
     
     def __str__(self):
         return self.user
+    
+class Message(models.Model):
+    value = models.CharField(max_length=1000000)
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    user = models.CharField(max_length=100000)
+    room = models.CharField(max_length=100000)
+
+    def __str__(self):
+        return self.room
