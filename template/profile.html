@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/color.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-
+    <script src="https://kit.fontawesome.com/e1a7a44560.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <!--<div class="se-pre-con"></div>-->
@@ -30,8 +30,15 @@
 				<form action="/follow" method="POST">
 					{% csrf_token %}
 					<div class="add-btn">
-					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>
+					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b>
+						
+						{% if user_object.username != user.username %}
 					
+						 <a href='/chat/{{user_object.username}}'><span> <i class="fa-solid fa-message text-white mx-2  text-center"></i></span></a>
+						{%endif%}
+					
+					</span>
+
 					{% if user_post_length == 0 %}
 					<span style="color: white; font-size: 27px;"><b>No Post</b></span>
 					{% elif user_post_length == 1 %}

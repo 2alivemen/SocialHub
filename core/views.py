@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Profile,Post, LikePost, FollowersCount, Message
+from django.db.models import Q
 from itertools import chain
 import random
 
@@ -319,10 +320,10 @@ def getMessages(request):
     if request.method == 'POST':
               roome = request.POST['room_id']
 
-              messages = Message.objects.filter(room = roome, user = request.user.username) 
+              messages = Message.objects.filter(Q(room = roome, user = request.user.username) | Q(room = request.user.username, user = roome))
+              messages2 = Message.objects.filter(room = request.user.username, user = roome)
 
-
-    return JsonResponse({"messages":list(messages.values())})
+    return JsonResponse({"messages":list(messages.values()), "messages2":list(messages2.values())})
 
     
 

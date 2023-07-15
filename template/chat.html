@@ -56,7 +56,7 @@ body {
 </head>
 <body>
 
-<h2>{{room}} - DjChat</h2>
+<h2>{{room}} - SocialHub Chat</h2>
 
 <div id="display">
 
@@ -66,6 +66,15 @@ body {
 </div> -->
 
 </div>
+
+{% comment %} <div id="display2">
+
+  <!-- <div class="container darker">
+    <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+    <span class="time-left">20th, April 2021</span>
+  </div> -->
+  
+  </div> {% endcomment %}
 
 <script>
 $(document).ready(function(){
@@ -84,11 +93,18 @@ setInterval(function(){
         success: function(response){
             console.log(response);
             $("#display").empty();
-            for (var key in response.messages)
+            for (var key in response.messages )
             {
                 var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
                 $("#display").append(temp);
             }
+
+            //for (var key in response.messages2 )
+            //{
+             //   var temp2="<div class='container darker'><b>"+response.messages2[key].user+"</b><p>"+response.messages2[key].value+"</p><span class='time-left'>"+response.messages2[key].date+"</span></div>";
+             //   $("#display").append(temp2);
+            //} 
+
         },
         //error: function(response){
         //    alert('An error occured')
