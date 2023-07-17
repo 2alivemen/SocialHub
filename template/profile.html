@@ -20,6 +20,11 @@
 </head>
 <body>
 <!--<div class="se-pre-con"></div>-->
+
+
+{% for message in messages %}
+<div class="alert alert-danger" role="alert">{{message}}</div>
+{% endfor %}
 <div class="theme-layout">
 	
 	</div>
@@ -129,6 +134,13 @@
 		</section>
 		
 	<section>
+
+
+
+
+
+
+
 		<div class="gap gray-bg">
 			<div class="container-fluid">
 				<div class="row">
@@ -157,6 +169,20 @@
 					
 										{% for post in user_posts %}
 										<li>
+											
+											{% if user_object.username == user.username %}
+
+											<ul class="space-y-1">
+												
+												<li> 
+													<a href="/delete?post_id={{post.id}}" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+													 <i class="uil-trash-alt mr-1"></i>  Delete Post
+													</a> 
+												</li>
+											  </ul>
+
+                                            {%endif%}
+
 											<a class="strip" href="{{post.image.url}}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
 												<img src="{{post.image.url}}" style="height: 250px; width: 300px;" alt="post"></a>
 										</li>

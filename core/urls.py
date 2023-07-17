@@ -12,6 +12,7 @@ urlpatterns = [
     path('profile/<str:pk>', views.profile, name='profile'),
     path('signin', views.signin, name='signin'),
     path('logout', views.Logout, name='Logout'),
+    path('delete', views.delete, name='delete'),
     path('chat/<str:room>', views.chat, name='chat'),
     path('pchat', views.pchat, name='pchat'),
     path('getMessages', views.getMessages, name='getMessages'),
