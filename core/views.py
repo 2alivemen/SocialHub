@@ -337,6 +337,38 @@ def delete(request):
    return redirect('/profile/'+request.user.username)
 
 
+def inbox(request):
+
+   messages = Message.objects.filter(room = request.user.username)
+   # messages2 = Message.objects.get(room = request.user.username)
+
+   # messageslist = []
+   # messageslistfinal = []
+   # for message in messages:
+      
+   #    messageslist.append(message)
+   # messageslist = list(messageslist)
+   # if messageslist.count()==1:
+   #    for message in messageslist:
+   #       messageslistfinal.append(message)
+   
+   m = []
+   me = None
+   
+   for message in messages:
+      count = 0
+      me = Message.objects.filter(room = request.user.username, user = message.user).last()
+      if message.user == message.user:
+         count+=1
+         if count == 1:
+          m.append(me)
+   # m = list(chain(*m))
+   m1 = []
+   [m1.append(x) for x in m if x not in m1]
+
+   return render(request, 'inbox.html', {'messages':m1})
+
+
 
 
 
