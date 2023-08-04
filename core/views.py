@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile,Post, LikePost, FollowersCount, Message
 from django.db.models import Q
 from itertools import chain
+import smtplib
 import random
 
 # Create your views here.
@@ -367,6 +368,46 @@ def inbox(request):
    [m1.append(x) for x in m if x not in m1]
 
    return render(request, 'inbox.html', {'messages':m1})
+
+
+
+def forgotpass(request):
+   
+   MY_EMAIL = "shreeshhegde007@gmail.com"
+   MY_PASSWORD = "bbfppgomlgvxghgy"
+   if request.method == 'POST':
+      username = request.POST['username']
+      user_model = User.objects.get(username=username)
+      person = user_model.email
+      messages.info(request, f"hello{person}")
+      # with smtplib.SMTP(host="smtp.gmail.com") as connection:
+      #      connection.starttls()
+      #      connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+      #      connection.sendmail(
+      #          from_addr=MY_EMAIL,
+      #          to_addrs=person,
+      #          msg=f"Subject:Happy Birthday!"
+      #      )
+
+      connection = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+      connection.ehlo()
+      connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+      connection.sendmail(from_addr=MY_EMAIL,
+      to_addrs=person,
+      msg="Subject:Link To Reset Your Password\n\n")
+      connection.close()
+      messages.info(request, "A message Has Been sent to your email")
+   return render(request, 'forgotpass.html')
+
+
+
+
+
+def sendemail(request):
+
+       return render(request, 'forgotpass.html')
+
+
 
 
 

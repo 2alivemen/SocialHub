@@ -17,6 +17,9 @@ urlpatterns = [
     path('pchat', views.pchat, name='pchat'),
     path('getMessages', views.getMessages, name='getMessages'),
     path('inbox', views.inbox, name='inbox'),
+    path('forgotpass', views.forgotpass, name='forgotpass'),
+    path('sendemail', views.sendemail, name='sendemail'),
+
 
 
 ]

@@ -35,11 +35,11 @@
 				<form action="/follow" method="POST">
 					{% csrf_token %}
 					<div class="add-btn">
-					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b>
+					<span style="color: white; font-size: 27px; margin-right: 520px; " class='mx-3'><b><u><a href="/">Home</a></u></b>
 						
 						{% if user_object.username != user.username %}
 					
-						 <a href='/chat/{{user_object.username}}'><span> <i class="fa-solid fa-message text-white mx-2  text-center"></i></span></a>
+						 <a href='/chat/{{user_object.username}}' class='mx-2'><u>Chat</u><span> <i class="fa-solid fa-message text-white mx-2  text-center"></i></span></a>
 						{%endif%}
 					
 					</span>
