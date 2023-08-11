@@ -388,13 +388,13 @@ def forgotpass(request):
       #          to_addrs=person,
       #          msg=f"Subject:Happy Birthday!"
       #      )
-
+      link = f'http://127.0.0.1:8000/resetpass/{username}'
       connection = smtplib.SMTP_SSL('smtp.gmail.com', 465)
       connection.ehlo()
       connection.login(user=MY_EMAIL, password=MY_PASSWORD)
       connection.sendmail(from_addr=MY_EMAIL,
       to_addrs=person,
-      msg="Subject:Link To Reset Your Password\n\n")
+      msg=f"Subject:Link To Reset Your Password\n\n {link}")
       connection.close()
       messages.info(request, "A message Has Been sent to your email")
    return render(request, 'forgotpass.html')
@@ -403,9 +403,24 @@ def forgotpass(request):
 
 
 
-def sendemail(request):
+def resetpass(request, user):
+      
+      if request.method == 'POST':
+        muser = User.objects.get(username = user)
+        password = request.POST['password']
+        password2 = request.POST['password2']
 
-       return render(request, 'forgotpass.html')
+
+      
+       
+        if password == password2:
+            muser.set_password(password)
+            muser.save()
+            messages.info(request, 'Password Reset successfully')
+            return redirect('signin')
+
+
+      return render(request, 'resetpass.html')
 
 
 

@@ -18,7 +18,7 @@ urlpatterns = [
     path('getMessages', views.getMessages, name='getMessages'),
     path('inbox', views.inbox, name='inbox'),
     path('forgotpass', views.forgotpass, name='forgotpass'),
-    path('sendemail', views.sendemail, name='sendemail'),
+    path('resetpass/<str:user>', views.resetpass, name='resetpass'),
 
 
 
